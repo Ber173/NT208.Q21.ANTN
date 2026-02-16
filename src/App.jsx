@@ -1,17 +1,20 @@
 import { useState } from 'react'
+import { Routes, Route } from 'react-router-dom'
 import Submitted from './assets/animation/Submitted.json'
 import Lottie from 'lottie-react'
 import './App.css'
+import Login from './pages/Auth/Login'
+import Register from './pages/Auth/Register'
+import Home from './pages/Home'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <div>
-        <Lottie animationData={Submitted} />
-        <h1 class="text-3xl font-bold underline">Hello world!</h1>
-      </div>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
     </>
   )
 }

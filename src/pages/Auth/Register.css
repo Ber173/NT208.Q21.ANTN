@@ -1,0 +1,139 @@
+/* ===== LỚP NGOÀI – BACKGROUND FULL MÀN HÌNH ===== */
+.register-wrapper {
+  min-height: 100vh;                 /* cao toàn màn hình */
+  display: flex;                     /* dùng flex để căn giữa */
+  justify-content: center;           /* căn giữa ngang */
+  align-items: center;               /* căn giữa dọc */
+
+  /* nền gradient */
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+
+/* ===== CARD ĐĂNG KÝ ===== */
+.register-page {
+  display: flex;                     /* xếp theo cột */
+  flex-direction: column;
+  gap: 15px;                         /* khoảng cách giữa các phần tử */
+
+  width: 420px;                      /* chiều ngang card */
+  max-width: 92%;                    /* responsive mobile */
+  padding: 30px;                     /* làm card to ra bên trong */
+
+  background: rgba(255, 255, 255, 0.12); /* nền kính mờ */
+  border-radius: 16px;               /* bo góc */
+  backdrop-filter: blur(10px);       /* hiệu ứng kính */
+  box-shadow: 0 8px 32px rgba(0,0,0,0.15); /* bóng đổ */
+}
+
+.input-group,
+.register-button {
+  max-width: 100%;
+  width: 100%;
+}
+
+
+
+
+/* ===== TIÊU ĐỀ ===== */
+.register-text {
+  font-size: 28px;                   /* cỡ chữ */
+  font-weight: 700;                  /* đậm */
+  color: #f0f2ff;                    /* trắng xanh */
+  text-align: center;                /* căn giữa */
+}
+
+
+/* ===== INPUT GROUP ===== */
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* label */
+.input-group label {
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* ô nhập */
+.input-group input {
+    width: 100%;
+  padding: 14px 16px;
+  border-radius: 8px;
+  border: none;
+  font-size: 15px;
+  outline: none;
+}
+
+/* focus input */
+.input-group input:focus {
+  box-shadow: 0 0 5px rgba(102,126,234,0.6);
+}
+
+
+/* ===== BUTTON ===== */
+.register-button {
+  width: 100%;
+  padding: 14px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: none;
+  background-color: #667eea;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.register-button:hover {
+  background-color: #5568d3;
+}
+
+
+/* Link login */
+.login-link {
+  color: #ddd;
+  font-size: 14px;
+  text-align: center;
+}
+
+.login-link a {
+  color: #667eea;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.login-link a:hover {
+  text-decoration: underline;
+}
+
+/* IPHONE */
+@media (max-width: 767px) {
+  .register-page {
+    padding: 20px;       /* card nhỏ lại */
+  }
+
+  .register-text {
+    font-size: 22px;     /* chữ nhỏ hơn */
+  }
+}
+
+
+/* IPAD DỌC */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .register-page {
+    transform: scale(1.5);
+    width: 480px;        /* card to hơn */
+  }
+}
+
+
+/* DESKTOP / IPAD NGANG  */
+@media (min-width: 1025px) {
+  .register-page {
+    width: 520px;        /* card to nhất */
+  }
+}
