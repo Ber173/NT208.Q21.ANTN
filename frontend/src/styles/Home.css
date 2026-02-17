@@ -1,0 +1,135 @@
+/* WRAPPER */
+.home-wrapper {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* CARD */
+.home-card {
+  width: 460px;
+  max-width: 92%;
+  padding: 40px 30px;
+  text-align: center;
+  border-radius: 20px;
+
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+/* TITLE */
+.home-title {
+  font-size: 32px;
+  font-weight: 800;
+  color: #f3f4ff;
+  margin-bottom: 10px;
+}
+
+/* SUBTITLE */
+.home-subtitle {
+  color: #e0e3ff;
+  font-size: 16px;
+  margin-bottom: 30px;
+}
+
+/* BUTTON GROUP */
+.home-buttons {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+}
+
+/* BUTTON */
+.home-btn {
+  padding: 12px 22px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 600;
+  color: white;
+  background: #667eea;
+  transition: 0.2s;
+}
+
+.home-btn:hover {
+  background: #5568d3;
+  transform: translateY(-3px) scale(1.03);
+}
+
+/* BUTTON OUTLINE */
+.home-btn.outline {
+  background: transparent;
+  border: 2px solid #667eea;
+  color: #667eea;
+}
+
+.home-btn.outline:hover {
+  background: #667eea;
+  color: white;
+}
+
+/* ================= ANIMATION ================= */
+
+/* Fade In */
+.fade-in {
+  animation: fadeIn 1s ease forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Slide Title */
+.slide-down {
+  animation: slideDown 0.8s ease forwards;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Delay */
+.fade-delay {
+  animation: fadeIn 1s ease forwards;
+  animation-delay: 0.4s;
+  opacity: 0;
+}
+
+.fade-delay-2 {
+  animation: fadeIn 1s ease forwards;
+  animation-delay: 0.7s;
+  opacity: 0;
+}
+
+/* MOBILE */
+@media (max-width: 767px) {
+  .home-title {
+    font-size: 24px;
+  }
+
+  .home-buttons {
+    flex-direction: column;
+  }
+}
+
+
+.lottie-box {
+  width: 200px;
+  margin: auto;
+  margin-bottom: 20px;
+}

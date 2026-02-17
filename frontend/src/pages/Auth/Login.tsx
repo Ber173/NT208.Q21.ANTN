@@ -1,13 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import './Login.css'
-import { useEffect } from 'react'
+import '../../styles/Login.css';
 
-
-function Login(){
+const Login: React.FC = () => {
     useEffect(() => {
         document.body.className = 'bg1';
-    }, [])
+    }, []);
 
     return (
         <div className='login-page'>
@@ -26,7 +24,7 @@ function Login(){
 
             <button className="login-button">Đăng nhập</button>
         </div>
-    )
-}
+    );
+};
 
 export default Login;

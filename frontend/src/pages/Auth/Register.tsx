@@ -1,12 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import './Register.css'
-import { useEffect } from 'react'
+import '../../styles/Register.css';
 
-function Register(){
+const Register: React.FC = () => {
     useEffect(() => {
         document.body.className = 'bg2';
-    }, [])
+    }, []);
     
     return (
         <div className='register-page'>
@@ -29,7 +28,7 @@ function Register(){
                 Đã có tài khoản? <Link to="/login">Đăng nhập ngay</Link>
             </p>
         </div>
-    )
-}
+    );
+};
 
 export default Register;
