@@ -231,5 +231,6 @@
 .center-text p{
   text-align: center;
   font-size: 25px;
-  color: #302f2f;
+  font-weight: 500;
+  color: #737070;
 }
