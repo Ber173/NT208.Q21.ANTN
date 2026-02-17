@@ -82,3 +82,10 @@ button:focus-visible {
   background-position: center;
   background-repeat: no-repeat;
 }
+
+.bg3{
+  background-image: url('/src/assets/images/bg3.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}

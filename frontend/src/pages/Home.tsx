@@ -1,30 +1,45 @@
-import React, { useEffect } from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import Lottie from 'lottie-react'
-import submitted from '../assets/animation/submitted.json'
 import '../styles/Home.css'
+import {useEffect} from 'react'
 
 const Home: React.FC = () => {
-  useEffect(() => {
-    document.body.className = 'bg1'
-  }, [])
+  const [open, setOpen] = useState(false)
+    useEffect(() => {
+        document.body.className = 'bg3';
+    }, [])
 
   return (
+
     <div className="home-wrapper">
-      <div className="home-card">
+      {/* MENU GÓC */}
+      <div className="corner-menu">
+        <button 
+          className="menu-toggle"
+          onClick={() => setOpen(!open)}
+        >
+          #
+        </button>
 
-        <div className="lottie-box">
-          <Lottie animationData={submitted} loop={true} />
-        </div>
+        {open && (
+          <div className="dropdown">
+            <Link to="/login" className="dropdown-item">
+              Đăng nhập
+            </Link>
 
-        <h1 className="home-title">English Learning</h1>
-
-        <div className="home-buttons">
-          <Link to="/login" className="home-btn">Đăng nhập</Link>
-          <Link to="/register" className="home-btn outline">Đăng ký</Link>
-        </div>
-
+            <Link to="/register" className="dropdown-item">
+              Đăng ký
+            </Link>
+          </div>
+        )}
       </div>
+
+      {/* TEXT GIỮA */}
+      <div className="center-text">
+        <h1>English Learning</h1>
+        <p>Học tiếng Anh mỗi ngày cùng Cabybaka</p>
+      </div>
+
     </div>
   )
 }
