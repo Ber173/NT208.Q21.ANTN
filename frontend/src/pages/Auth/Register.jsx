@@ -13,7 +13,7 @@ function Register(){
             <h1 className='register-text'>Đăng ký</h1>
 
             <div className="input-group">
-                <p>Gmail</p>
+                <p>Gmail đăng nhập</p>
                 <input type="text" placeholder='Gmail'></input>
                 <p>Tên đăng nhập</p>
                 <input type='text' placeholder='Username'></input>
