@@ -4,6 +4,7 @@ import './App.css';
 import Login from './pages/Auth/Login';
 import Register from './pages/Auth/Register';
 import Home from './pages/Home';
+import Flashcard from './components/ui/FlashCard';
 
 const App: React.FC = () => {
   return (
@@ -11,6 +12,7 @@ const App: React.FC = () => {
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/flashcard" element={<Flashcard />} />
     </Routes>
   );
 };
