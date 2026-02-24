@@ -1,9 +1,15 @@
+import { Request, Response, NextFunction } from 'express'
 import { StatusCodes } from 'http-status-codes'
-import userService from '~/services/user.service.js'
+import userService from '~/services/user.service'
 
-const createUser = async (req, res, next) => {
+const createUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
   try {
     const user = await userService.createUser(req.body)
+
     res.status(StatusCodes.CREATED).json({
       success: true,
       message: 'User created successfully',
@@ -14,9 +20,14 @@ const createUser = async (req, res, next) => {
   }
 }
 
-const getUsers = async (req, res, next) => {
+const getUsers = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
   try {
     const result = await userService.getAllUsers(req.query)
+
     res.status(StatusCodes.OK).json({
       success: true,
       data: result
@@ -26,9 +37,14 @@ const getUsers = async (req, res, next) => {
   }
 }
 
-const getUserById = async (req, res, next) => {
+const getUserById = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
   try {
     const user = await userService.getUserById(req.params.id)
+
     res.status(StatusCodes.OK).json({
       success: true,
       data: user
@@ -38,9 +54,14 @@ const getUserById = async (req, res, next) => {
   }
 }
 
-const updateUser = async (req, res, next) => {
+const updateUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
   try {
     const user = await userService.updateUser(req.params.id, req.body)
+
     res.status(StatusCodes.OK).json({
       success: true,
       message: 'User updated successfully',
@@ -51,9 +72,14 @@ const updateUser = async (req, res, next) => {
   }
 }
 
-const deleteUser = async (req, res, next) => {
+const deleteUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
   try {
     const result = await userService.deleteUser(req.params.id)
+
     res.status(StatusCodes.OK).json({
       success: true,
       message: result.message

@@ -1,9 +1,24 @@
 /* eslint-disable no-useless-catch */
-import User from '~/models/user.model.js'
 
-const createUser = async (data) => {
+import User, { IUser } from '~/models/user.model'
+
+// ==============================
+// Types
+// ==============================
+
+interface PaginationQuery {
+  page?: number
+  limit?: number
+  sort?: string
+  [key: string]: any
+}
+
+// ==============================
+// CREATE USER
+// ==============================
+
+const createUser = async (data: any): Promise<IUser> => {
   try {
-    // Check if user already exists
     const existingUser = await User.findOne({
       $or: [{ email: data.email }, { username: data.username }]
     })
@@ -24,23 +39,43 @@ const createUser = async (data) => {
   }
 }
 
-const getAllUsers = async (query = {}) => {
+// ==============================
+// GET ALL USERS (Pagination)
+// ==============================
+
+const getAllUsers = async (
+  query: PaginationQuery = {}
+): Promise<{
+  users: any[]
+  totalPages: number
+  currentPage: number
+  total: number
+}> => {
   try {
-    const { page = 1, limit = 10, sort = '-createdAt' } = query
-    
+    const {
+      page = 1,
+      limit = 10,
+      sort = '-createdAt'
+    } = query
+
+    const pageNumber = Number(page)
+    const limitNumber = Number(limit)
+
     const users = await User.find({ isActive: true })
       .select('-password')
       .sort(sort)
-      .limit(limit * 1)
-      .skip((page - 1) * limit)
+      .limit(limitNumber)
+      .skip((pageNumber - 1) * limitNumber)
       .lean()
 
-    const count = await User.countDocuments({ isActive: true })
+    const count = await User.countDocuments({
+      isActive: true
+    })
 
     return {
       users,
-      totalPages: Math.ceil(count / limit),
-      currentPage: page,
+      totalPages: Math.ceil(count / limitNumber),
+      currentPage: pageNumber,
       total: count
     }
   } catch (error) {
@@ -48,23 +83,37 @@ const getAllUsers = async (query = {}) => {
   }
 }
 
-const getUserById = async (id) => {
+// ==============================
+// GET USER BY ID
+// ==============================
+
+const getUserById = async (
+  id: string
+): Promise<IUser> => {
   try {
     const user = await User.findById(id).select('-password')
+
     if (!user) {
       throw new Error('User not found')
     }
+
     return user
   } catch (error) {
     throw error
   }
 }
 
-const updateUser = async (id, data) => {
+// ==============================
+// UPDATE USER
+// ==============================
+
+const updateUser = async (
+  id: string,
+  data: any
+): Promise<IUser> => {
   try {
-    // Don't allow password update through this method
     delete data.password
-    
+
     const user = await User.findByIdAndUpdate(
       id,
       { $set: data },
@@ -81,9 +130,14 @@ const updateUser = async (id, data) => {
   }
 }
 
-const deleteUser = async (id) => {
+// ==============================
+// DELETE USER (Soft Delete)
+// ==============================
+
+const deleteUser = async (
+  id: string
+): Promise<{ message: string }> => {
   try {
-    // Soft delete - just mark as inactive
     const user = await User.findByIdAndUpdate(
       id,
       { $set: { isActive: false } },
