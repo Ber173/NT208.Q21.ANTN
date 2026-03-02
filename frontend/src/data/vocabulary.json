@@ -1,0 +1,66 @@
+{
+  "topics": [
+    {
+      "topicId": "fruits",
+      "title": "Fruits",
+      "level": 1,
+      "lessons": [
+        {
+          "lessonId": 1,
+          "title": "Basic Fruits",
+          "cards": [
+            {
+              "id": 1,
+              "word": "Apple",
+              "ipa": "/ˈæp.əl/",
+              "meaning": "Quả táo"
+            },
+            {
+              "id": 2,
+              "word": "Banana",
+              "ipa": "/bəˈnɑː.nə/",
+              "meaning": "Quả chuối"
+            }
+          ]
+        },
+        {
+          "lessonId": 2,
+          "title": "More Fruits",
+          "cards": [
+            {
+              "id": 3,
+              "word": "Orange",
+              "ipa": "/ˈɒr.ɪndʒ/",
+              "meaning": "Quả cam"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "topicId": "animals",
+      "title": "Animals",
+      "level": 1,
+      "lessons": [
+        {
+          "lessonId": 1,
+          "title": "Pets",
+          "cards": [
+            {
+              "id": 1,
+              "word": "Dog",
+              "ipa": "/dɒɡ/",
+              "meaning": "Con chó"
+            },
+            {
+              "id": 2,
+              "word": "Cat",
+              "ipa": "/kæt/",
+              "meaning": "Con mèo"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
