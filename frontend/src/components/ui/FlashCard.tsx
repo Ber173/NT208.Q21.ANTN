@@ -2,13 +2,6 @@ import { useState } from "react";
 import { useGame } from "../../context/GameContext";
 import data from "../../data/vocabulary.json";
 
-/*
-  Flashcard Component đơn giản
-  - Chọn 1 nhóm (vd: fruits)
-  - Không dùng route động
-  - Tailwind UI
-*/
-
 type Card = {
   id: number;
   word: string;
@@ -19,11 +12,20 @@ type Card = {
 export default function Flashcard() {
   const { addXP } = useGame();
 
-  // 🔥 Chọn nhóm ở đây
-  const cards: Card[] = data.topics[0]?.lessons[0]?.cards || [];
+  const cards: Card[] =
+    data?.topics?.[0]?.lessons?.[0]?.cards || [];
 
   const [index, setIndex] = useState(0);
   const [flipped, setFlipped] = useState(false);
+
+  // 🛑 Nếu không có dữ liệu
+  if (!cards.length) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        No vocabulary found.
+      </div>
+    );
+  }
 
   const current = cards[index];
 
@@ -34,14 +36,17 @@ export default function Flashcard() {
       setIndex(index + 1);
     } else {
       alert("Hoàn thành nhóm này!");
+      setIndex(0); // reset lại
     }
   };
 
-  const progress = ((index + 1) / cards.length) * 100;
+  const progress =
+    cards.length > 0
+      ? ((index + 1) / cards.length) * 100
+      : 0;
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-6">
-
       {/* Progress */}
       <div className="w-full max-w-md mb-8">
         <div className="w-full bg-gray-300 h-3 rounded-full">

@@ -4,7 +4,8 @@ import './App.css';
 import Login from './pages/Auth/Login';
 import Register from './pages/Auth/Register';
 import Home from './pages/Home';
-import Flashcard from './components/ui/FlashCard';
+import Vocabulary from '../src/pages/Learn/Vocabulary';
+import DashBoard from './pages/DashBoard/DashBoard';
 
 const App: React.FC = () => {
   return (
@@ -12,7 +13,8 @@ const App: React.FC = () => {
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
-      <Route path="/flashcard" element={<Flashcard />} />
+      <Route path="/vocabulary" element={<Vocabulary />} />
+      <Route path="/dashboard" element={<DashBoard />} />
     </Routes>
   );
 };

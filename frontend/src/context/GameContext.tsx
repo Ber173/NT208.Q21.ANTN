@@ -8,12 +8,13 @@ import type { ReactNode } from "react";
   - Quản lý Level
 */
 
+// interface định nghĩa kiểu dữ liệu của context
 interface GameContextType {
-  xp: number;
-  hearts: number;
-  level: number;
-  addXP: (amount: number) => void;
-  loseHeart: () => void;
+  xp: number;     // Tổng XP hiện tại
+  hearts: number; // Số lượng hearts còn lại
+  level: number;  // Level hiện tại (tính theo XP)
+  addXP: (amount: number) => void;   // Hàm để thêm XP
+  loseHeart: () => void;  // Hàm để mất một heart
 }
 
 const GameContext = createContext<GameContextType | undefined>(undefined);
