@@ -13,7 +13,7 @@ export default function Flashcard() {
   const { addXP } = useGame();
 
   const cards: Card[] =
-    data?.topics?.[0]?.lessons?.[0]?.cards || [];
+    data?.topics?.[0]?.lessons?.[0]?.cards || []; // lấy nhóm đầu tiên, bài học đầu tiên, nếu có
 
   const [index, setIndex] = useState(0);
   const [flipped, setFlipped] = useState(false);
