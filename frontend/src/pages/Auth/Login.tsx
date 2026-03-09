@@ -70,7 +70,7 @@ const Login: React.FC = () => {
         <form onSubmit={handleLogin} className="space-y-5">
 
           <div>
-            <label className="text-sm font-semibold text-gray-600">
+            <label className="text-sm font-semibold text-gray-600 ali">
               Email
             </label>
 

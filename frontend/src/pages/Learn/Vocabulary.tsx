@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useGame } from "../../context/GameContext";
 import vocabularyData from "../../data/vocabulary.json";
 import Earth from "../../assets/images/Earth.png";
+import { Link } from "react-router-dom";
 
 /*
   FLASHCARD LEARNING COMPONENT
@@ -44,6 +45,13 @@ export default function Flashcard() {
   if (!selectedTopic) {
     return (
       <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-[#0f1029] via-[#20144f] to-[#09070f] text-white flex flex-col items-center justify-center p-8">
+        <Link
+          to="/dashboard"
+          className="absolute top-6 left-6 z-20 px-4 py-2 bg-white/10 border border-white/20 text-white rounded-lg hover:bg-white/20 transition text-sm font-semibold"
+        >
+          ← Return Dashboard
+        </Link>
+
         {/* Decorative lights */}
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute -top-24 -left-16 h-80 w-80 rounded-full bg-fuchsia-500/20 blur-3xl" />
@@ -96,6 +104,13 @@ export default function Flashcard() {
   if (finished) {
     return (
       <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-[#0f1029] via-[#20144f] to-[#09070f] text-white flex flex-col items-center justify-center p-8">
+        <Link
+          to="/dashboard"
+          className="absolute top-6 left-6 z-20 px-4 py-2 bg-white/10 border border-white/20 text-white rounded-lg hover:bg-white/20 transition text-sm font-semibold"
+        >
+          ← Return Dashboard
+        </Link>
+
         {/* Decorative lights */}
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute top-1/4 left-1/4 h-96 w-96 rounded-full bg-emerald-500/30 blur-3xl" />
@@ -130,6 +145,13 @@ export default function Flashcard() {
 
   return (
     <div className="relative w-screen h-screen overflow-hidden bg-gradient-to-br from-[#0f1029] via-[#20144f] to-[#09070f] text-white flex">
+      <Link
+        to="/dashboard"
+        className="absolute top-6 right-6 z-20 px-4 py-2 bg-white/10 border border-white/20 text-white rounded-lg hover:bg-white/20 transition text-sm font-semibold"
+      >
+        ← Return Dashboard
+      </Link>
+
       {/* Decorative lights */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute top-0 left-0 h-96 w-96 rounded-full bg-blue-500/20 blur-3xl" />

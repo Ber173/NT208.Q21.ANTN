@@ -60,53 +60,55 @@ const Register: React.FC = () => {
     };
     
     return (
-        <div className='register-page'>
-            <h1 className='register-text'>Đăng ký</h1>
+        <div className='register-wrapper'>
+            <div className='register-page'>
+                <h1 className='register-text'>Đăng ký</h1>
 
-            <form className="input-group" onSubmit={handleRegister}>
-                <p>Gmail đăng nhập</p>
-                <input
-                    type="email"
-                    placeholder='Gmail'
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                />
-                <p>Tên đăng nhập</p>
-                <input
-                    type='text'
-                    placeholder='Username'
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    required
-                />
-                <p>Mật khẩu</p>
-                <input
-                    type='password'
-                    placeholder='Password'
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                />
-                <p>Xác nhận mật khẩu</p>
-                <input
-                    type='password'
-                    placeholder='Confirm Password'
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    required
-                />
+                <form className="input-group" onSubmit={handleRegister}>
+                    <p>Gmail đăng nhập</p>
+                    <input
+                        type="email"
+                        placeholder='Gmail'
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                    />
+                    <p>Tên đăng nhập</p>
+                    <input
+                        type='text'
+                        placeholder='Username'
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        required
+                    />
+                    <p>Mật khẩu</p>
+                    <input
+                        type='password'
+                        placeholder='Password'
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                    />
+                    <p>Xác nhận mật khẩu</p>
+                    <input
+                        type='password'
+                        placeholder='Confirm Password'
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        required
+                    />
 
-                {error && <p className="error-message">{error}</p>}
+                    {error && <p className="error-message">{error}</p>}
 
-                <button className='register-button' type="submit" disabled={loading}>
-                    {loading ? 'Đang xử lý...' : 'Đăng ký'}
-                </button>
-            </form>
+                    <button className='register-button' type="submit" disabled={loading}>
+                        {loading ? 'Đang xử lý...' : 'Đăng ký'}
+                    </button>
+                </form>
 
-            <p className="login-link">
-                Đã có tài khoản? <Link to="/login">Đăng nhập ngay</Link>
-            </p>
+                <p className="login-link">
+                    Đã có tài khoản? <Link to="/login">Đăng nhập ngay</Link>
+                </p>
+            </div>
         </div>
     );
 };

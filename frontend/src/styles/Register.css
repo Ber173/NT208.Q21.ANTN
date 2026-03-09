@@ -4,9 +4,11 @@
   display: flex;                     /* dùng flex để căn giữa */
   justify-content: center;           /* căn giữa ngang */
   align-items: center;               /* căn giữa dọc */
+  width: 100%;
+  padding: 16px;
 
-  /* nền gradient */
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  /* dùng nền từ body.bg2 */
+  background: transparent;
 }
 
 
@@ -24,6 +26,7 @@
   border-radius: 16px;               /* bo góc */
   backdrop-filter: blur(10px);       /* hiệu ứng kính */
   box-shadow: 0 8px 32px rgba(0,0,0,0.15); /* bóng đổ */
+  margin: 0 auto;
 }
 
 .input-group,
@@ -49,6 +52,8 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
+  width: 100%;
+  align-items: stretch;
 }
 
 /* label */
@@ -60,12 +65,21 @@
 
 /* ô nhập */
 .input-group input {
-    width: 100%;
+  width: 100%;
   padding: 14px 16px;
   border-radius: 8px;
   border: none;
   font-size: 15px;
   outline: none;
+  box-sizing: border-box;
+}
+
+.input-group p {
+  text-align: left;
+  font-size: 18px;
+  font-weight: 700;
+  color: rgb(103, 103, 236);
+  margin: 0;
 }
 
 /* focus input */

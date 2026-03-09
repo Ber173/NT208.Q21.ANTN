@@ -6,6 +6,7 @@ import Register from './pages/Auth/Register';
 import Home from './pages/Home';
 import Vocabulary from '../src/pages/Learn/Vocabulary';
 import DashBoard from './pages/DashBoard/DashBoard';
+import ImageQuiz from './pages/Learn/ImageQuiz';
 
 const App: React.FC = () => {
   return (
@@ -15,6 +16,7 @@ const App: React.FC = () => {
       <Route path="/register" element={<Register />} />
       <Route path="/vocabulary" element={<Vocabulary />} />
       <Route path="/dashboard" element={<DashBoard />} />
+      <Route path="/image-quiz" element={<ImageQuiz />} />
     </Routes>
   );
 };

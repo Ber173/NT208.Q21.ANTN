@@ -138,9 +138,12 @@ export default function DashBoard() {
               >
                 Start Vocabulary
               </Link>
-              <button className="rounded-xl bg-gradient-to-r from-violet-500 to-fuchsia-500 px-4 py-3 text-sm font-bold text-white shadow-lg transition hover:scale-[1.02]">
-                Play Quiz
-              </button>
+              <Link
+                to="/image-quiz"
+                className="rounded-xl bg-gradient-to-r from-violet-500 to-fuchsia-500 px-4 py-3 text-center text-sm font-bold text-white shadow-lg transition hover:scale-[1.02]"
+              >
+                Play Image Quiz
+              </Link>
               <button className="rounded-xl border border-white/20 bg-white/10 px-4 py-3 text-sm font-bold text-white transition hover:bg-white/20">
                 Review Progress
               </button>
