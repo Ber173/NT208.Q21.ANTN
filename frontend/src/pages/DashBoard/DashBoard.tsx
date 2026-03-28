@@ -4,7 +4,6 @@ import { FiSearch } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import { FaGamepad, FaMagic, FaHome, FaCookieBite, FaRegSmile, FaGift } from 'react-icons/fa';
 
-// --- MOCK DATA ---
 const categories = [
   { name: 'ABC LETTERS', color: 'bg-yellow-400', shadow: 'shadow-yellow-600', text: 'text-yellow-900' },
   { name: '123 NUMBERS', color: 'bg-cyan-400', shadow: 'shadow-cyan-600', text: 'text-white' },
