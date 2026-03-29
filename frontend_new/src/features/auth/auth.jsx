@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import CharacterCreator from './CharacterCreator';
 
 const DEFAULT_AVATAR = {
@@ -28,7 +28,19 @@ const saveRegisteredUser = ({ email, password, avatar }) => {
     );
 };
 
+const saveCurrentUser = ({ email, password, avatar }) => {
+    localStorage.setItem(
+        'current-user',
+        JSON.stringify({
+            email,
+            password,
+            avatar,
+        })
+    );
+};
+
 export default function Auth() {
+    const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -61,93 +73,105 @@ export default function Auth() {
     };
 
     const handleFinishAvatar = () => {
-        saveRegisteredUser({
+        const userPayload = {
             email,
             password,
             avatar: avatarConfig,
-        });
+        };
+
+        saveRegisteredUser(userPayload);
+        saveCurrentUser(userPayload);
+        navigate('/dashboard');
     };
 
+    if (registered) {
+        return (
+            <CharacterCreator
+                fullScreen
+                avatarConfig={avatarConfig}
+                onChange={setAvatarConfig}
+                onSave={handleFinishAvatar}
+                onNext={() => navigate('/login')}
+            />
+        );
+    }
+
     return (
-        <section className="bg-gray-50 dark:bg-gray-900">
-            <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-                <a
-                    href="#"
-                    className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
-                >
-                    <img
-                        className="w-8 h-8 mr-2"
-                        src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg"
-                        alt="logo"
-                    />
-                    Flowbite
-                </a>
+        <section className="relative min-h-screen overflow-hidden bg-gradient-to-b from-[#f89f3c] via-[#f5c85b] to-[#e6f48f]">
+            <div className="pointer-events-none absolute -left-24 top-40 h-72 w-72 rounded-full bg-[#fff2d8]/80" />
+            <div className="pointer-events-none absolute -right-20 top-24 h-80 w-80 rounded-full bg-[#fff7e6]/75" />
+            <div className="pointer-events-none absolute bottom-0 left-0 h-52 w-full bg-gradient-to-t from-[#9de072]/80 to-transparent" />
 
-                <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+            <div className="relative flex w-full flex-col items-center justify-center px-6 py-8 md:min-h-screen lg:py-0">
+                <div className="mb-6 text-center">
+                    <p className="text-5xl font-black tracking-tight text-white drop-shadow-md md:text-6xl">Funny English</p>
+                    <p className="mt-2 text-sm font-extrabold text-[#7c420a]">Dang ky tai khoan de bat dau choi game</p>
+                </div>
+
+                <div className="w-full rounded-3xl border-4 border-[#f6e9d7] bg-[#fff8eb]/95 shadow-2xl sm:max-w-md xl:p-0">
                     <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-                        {!registered ? (
-                            <>
-                                <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                                    Tạo tài khoản cho bé
-                                </h1>
+                        <>
+                            <h1 className="text-xl font-black leading-tight tracking-tight text-[#6a3511] md:text-2xl">
+                                Tạo tài khoản cho bé
+                            </h1>
 
-                                <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
-                                    <div>
-                                        <label
-                                            htmlFor="email"
-                                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                        >
-                                            Email
-                                        </label>
-                                        <input
-                                            type="email"
-                                            name="email"
-                                            id="email"
-                                            value={email}
-                                            onChange={(event) => setEmail(event.target.value)}
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                            placeholder="name@company.com"
-                                            required
-                                        />
-                                    </div>
+                            <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
+                                <div>
+                                    <label
+                                        htmlFor="email"
+                                        className="block mb-2 text-sm font-bold text-[#7c420a]"
+                                    >
+                                        Email
+                                    </label>
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        id="email"
+                                        value={email}
+                                        onChange={(event) => setEmail(event.target.value)}
+                                        className="block w-full rounded-xl border-2 border-[#f0d9b8] bg-white/90 p-2.5 text-sm text-[#6a3511] focus:border-[#f89f3c] focus:outline-none"
+                                        placeholder="name@company.com"
+                                        required
+                                    />
+                                </div>
 
-                                    <div>
-                                        <label
-                                            htmlFor="password"
-                                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                        >
-                                            Mật khẩu
-                                        </label>
-                                        <input
-                                            type="password"
-                                            name="password"
-                                            id="password"
-                                            value={password}
-                                            onChange={(event) => setPassword(event.target.value)}
-                                            placeholder="••••••••"
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                            required
-                                        />
-                                    </div>
+                                <div>
+                                    <label
+                                        htmlFor="password"
+                                        className="block mb-2 text-sm font-bold text-[#7c420a]"
+                                    >
+                                        Mật khẩu
+                                    </label>
+                                    <input
+                                        type="password"
+                                        name="password"
+                                        id="password"
+                                        value={password}
+                                        onChange={(event) => setPassword(event.target.value)}
+                                        placeholder="••••••••"
+                                        className="block w-full rounded-xl border-2 border-[#f0d9b8] bg-white/90 p-2.5 text-sm text-[#6a3511] focus:border-[#f89f3c] focus:outline-none"
+                                        required
+                                    />
+                                </div>
 
-                                    <div>
-                                        <label
-                                            htmlFor="confirm-password"
-                                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                        >
-                                            Xác nhận mật khẩu
-                                        </label>
-                                        <input
-                                            type="password"
-                                            name="confirm-password"
-                                            id="confirm-password"
-                                            value={confirmPassword}
-                                            onChange={(event) => setConfirmPassword(event.target.value)}
-                                            placeholder="••••••••"
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                            required
-                                        />
-                                    </div>
+                                <div>
+                                    <label
+                                        htmlFor="confirm-password"
+                                        className="block mb-2 text-sm font-bold text-[#7c420a]"
+                                    >
+                                        Xác nhận mật khẩu
+                                    </label>
+                                    <input
+                                        type="password"
+                                        name="confirm-password"
+                                        id="confirm-password"
+                                        value={confirmPassword}
+                                        onChange={(event) => setConfirmPassword(event.target.value)}
+                                        placeholder="••••••••"
+                                        className="block w-full rounded-xl border-2 border-[#f0d9b8] bg-white/90 p-2.5 text-sm text-[#6a3511] focus:border-[#f89f3c] focus:outline-none"
+                                        required
+                                    />
+                                </div>
 
                                     <div className="flex items-start">
                                         <div className="flex items-center h-5">
@@ -163,14 +187,14 @@ export default function Auth() {
                                         <div className="ml-3 text-sm">
                                             <label
                                                 htmlFor="terms"
-                                                className="font-light text-gray-500 dark:text-gray-300"
+                                                className="font-semibold text-[#8f5a31]"
                                             >
-                                                I accept the{' '}
+                                                Toi dong y voi{' '}
                                                 <a
-                                                    className="font-medium text-primary-600 hover:underline dark:text-primary-500"
+                                                    className="font-black text-[#d14d00] hover:underline"
                                                     href="#"
                                                 >
-                                                    Terms and Conditions
+                                                    dieu khoan su dung
                                                 </a>
                                             </label>
                                         </div>
@@ -182,51 +206,22 @@ export default function Auth() {
 
                                     <button
                                         type="submit"
-                                        className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                                        className="w-full rounded-xl bg-gradient-to-r from-[#ff8b3d] to-[#ff5f45] px-5 py-2.5 text-center text-sm font-black text-white shadow-md hover:brightness-105"
                                     >
                                         Đăng ký
                                     </button>
 
-                                    <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                                        Already have an account?{' '}
+                                    <p className="text-sm font-semibold text-[#8f5a31]">
+                                        Da co tai khoan?{' '}
                                         <Link
                                             to="/login"
-                                            className="font-medium text-primary-600 hover:underline dark:text-primary-500"
+                                            className="font-black text-[#d14d00] hover:underline"
                                         >
-                                            Login here
+                                            Dang nhap ngay
                                         </Link>
                                     </p>
-                                </form>
-                            </>
-                        ) : (
-                            <>
-                                <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                                    Đăng ký thành công 🎉
-                                </h1>
-
-                                <p className="text-sm text-gray-600 dark:text-gray-300">
-                                    Bây giờ bé hãy chọn nhân vật bằng hình ảnh nhé.
-                                </p>
-
-                                <CharacterCreator avatarConfig={avatarConfig} onChange={setAvatarConfig} />
-
-                                <div className="flex gap-2">
-                                    <button
-                                        type="button"
-                                        onClick={handleFinishAvatar}
-                                        className="flex-1 text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                                    >
-                                        Lưu nhân vật
-                                    </button>
-                                    <Link
-                                        to="/login"
-                                        className="flex-1 text-center text-sm font-medium rounded-lg px-5 py-2.5 border border-gray-300 text-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-gray-700"
-                                    >
-                                        Sang đăng nhập
-                                    </Link>
-                                </div>
-                            </>
-                        )}
+                            </form>
+                        </>
                     </div>
                 </div>
             </div>

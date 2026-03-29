@@ -1,8 +1,11 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Avatar from 'avataaars';
 import { motion } from 'framer-motion';
 import gcomprisGames from '../../data/gcomprisGames.json';
+import trackLearnAndPlay from '../../assets/sound/lttmedia-lets-learn-and-play-398670.mp3';
+import trackLittleDolphin from '../../assets/sound/lttmedia-little-dolphin-fin-274776.mp3';
+import trackPhonicsSong from '../../assets/sound/phonics-song-gracies-corner.mp3';
 
 const fallbackAvatar = {
   avatarStyle: 'Circle',
@@ -28,9 +31,14 @@ const categories = [
   { key: 'creativity', name: 'CREATIVITY', color: 'bg-[#fdd835] text-[#4e3400]' },
 ];
 
+const MUSIC_PLAYLIST = [trackLearnAndPlay, trackLittleDolphin, trackPhonicsSong];
+
 export default function Dashboard() {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
+  const [isMusicOn, setIsMusicOn] = useState(true);
+  const [trackIndex, setTrackIndex] = useState(0);
+  const audioRef = useRef(null);
 
   useEffect(() => {
     const rawCurrentUser = localStorage.getItem('current-user');
@@ -54,7 +62,76 @@ export default function Dashboard() {
 
   const handleLogout = () => {
     localStorage.removeItem('current-user');
+    if (audioRef.current) {
+      audioRef.current.pause();
+    }
     navigate('/login');
+  };
+
+  useEffect(() => {
+    const audio = new Audio();
+    audio.preload = 'auto';
+    audio.volume = 0.35;
+    audioRef.current = audio;
+
+    const handleEnded = () => {
+      setTrackIndex((prev) => (prev + 1) % MUSIC_PLAYLIST.length);
+    };
+
+    audio.addEventListener('ended', handleEnded);
+
+    return () => {
+      audio.pause();
+      audio.removeEventListener('ended', handleEnded);
+      audioRef.current = null;
+    };
+  }, []);
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    audio.src = MUSIC_PLAYLIST[trackIndex];
+    if (!isMusicOn) return;
+
+    const tryPlay = async () => {
+      try {
+        await audio.play();
+      } catch {
+        // Browser autoplay policies may block play until user interacts.
+      }
+    };
+
+    tryPlay();
+  }, [trackIndex, isMusicOn]);
+
+  useEffect(() => {
+    if (!isMusicOn) return undefined;
+
+    const handleFirstInteraction = () => {
+      const audio = audioRef.current;
+      if (!audio || !audio.paused) return;
+      audio.play().catch(() => {});
+    };
+
+    window.addEventListener('click', handleFirstInteraction, { once: true });
+    return () => {
+      window.removeEventListener('click', handleFirstInteraction);
+    };
+  }, [isMusicOn]);
+
+  const toggleMusic = () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    if (isMusicOn) {
+      audio.pause();
+      setIsMusicOn(false);
+      return;
+    }
+
+    setIsMusicOn(true);
+    audio.play().catch(() => {});
   };
 
   const gamesByCategory = useMemo(() => {
@@ -67,31 +144,100 @@ export default function Dashboard() {
   const customGames = [
     {
       slug: 'drawing-board',
+      path: '/games/drawing-board',
       title: 'Bảng Vẽ Tô Màu',
       category: 'creativity',
       icon: 'https://raw.githubusercontent.com/L-E-D-4-N/Image/main/OIG1.jpg',
       description: 'Trò chơi tô màu giúp bé học màu sắc và phát huy trí tưởng tượng.',
     },
+    {
+      slug: 'rocket-dodge',
+      path: '/games/rocket-dodge',
+      title: 'Rocket Dodge',
+      category: 'creativity',
+      icon: 'https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=900&q=80',
+      description: 'Game né sao bằng react-game-kit, dùng phím mũi tên để chơi.',
+    },
+    {
+      slug: 'english-spelling',
+      path: '/games/english-spelling',
+      title: 'English Spelling Word Game',
+      category: 'creativity',
+      icon: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=900&q=80',
+      description: 'Game xep chu cai de hoan thanh tu tieng Anh theo hinh minh hoa.',
+    },
+    {
+      slug: 'flashcards-arena',
+      path: '/games/flashcards-arena',
+      title: 'Flashcards Arena',
+      category: 'creativity',
+      icon: 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=900&q=80',
+      description: 'Lật thẻ từ vựng, đánh dấu đã nhớ hoặc cần ôn lại.',
+    },
+    {
+      slug: 'memory-game',
+      path: '/games/memory-game',
+      title: 'Memory Game Classic',
+      category: 'creativity',
+      icon: 'https://images.unsplash.com/photo-1606092195730-5d7b9af1efc5?auto=format&fit=crop&w=900&q=80',
+      description: 'Lật thẻ hình ảnh kèm từ tiếng Anh và ghép cặp giống nhau.',
+    },
+    {
+      slug: 'esl-collection',
+      path: '/games/esl-collection',
+      title: 'ESL Game Collection',
+      category: 'creativity',
+      icon: 'https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=900&q=80',
+      description: 'Bộ nhiều mini-game ESL (Unity) mở trực tiếp từ bản web.',
+    },
+    {
+      slug: 'react-game',
+      path: '/games/react-game',
+      title: 'React Game (Embedded)',
+      category: 'creativity',
+      icon: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=900&q=80',
+      description: 'Tich hop truc tiep tu project react-game vao dashboard.',
+    },
+    {
+      slug: 'ai-storyteller',
+      path: '/games/ai-storyteller',
+      title: 'AI Kid Storyteller',
+      category: 'creativity',
+      icon: 'https://images.unsplash.com/photo-1516627145497-ae6968895b9f?auto=format&fit=crop&w=900&q=80',
+      description: 'Mo ung dung ke chuyen AI da clone de choi ngay tu dashboard.',
+    },
   ];
 
   return (
-    <main className="min-h-screen bg-slate-100">
-      <header className="sticky top-0 z-20 border-b bg-white/90 backdrop-blur">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
+    <main className="relative min-h-screen overflow-hidden bg-gradient-to-b from-[#f89f3c] via-[#f6c85a] to-[#e5f391]">
+      <div className="pointer-events-none absolute -left-28 top-24 h-80 w-80 rounded-full bg-[#fff2d8]/85" />
+      <div className="pointer-events-none absolute -right-24 top-16 h-96 w-96 rounded-full bg-[#fff7e6]/80" />
+      <div className="pointer-events-none absolute bottom-0 left-0 h-64 w-full bg-gradient-to-t from-[#95db67]/90 to-transparent" />
+
+      <div className="fixed left-3 top-3 z-30 flex items-center gap-2 rounded-full border-2 border-[#f5e6d1] bg-[#fff8eb]/95 px-3 py-1.5 shadow-lg backdrop-blur">
+        <Avatar style={{ width: '36px', height: '36px' }} {...(user?.avatar || fallbackAvatar)} />
+        <span className="text-sm font-black text-[#6b3b14]">{displayName}</span>
+      </div>
+
+      <header className="sticky top-0 z-20 border-b border-[#f3d5ad] bg-[#fff6e7]/92 backdrop-blur">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 pl-20">
           <div>
-            <h1 className="text-xl font-black text-slate-800">Game Dashboard</h1>
-            <p className="text-xs font-semibold text-slate-500">Kho trò chơi theo dữ liệu GCompris</p>
+            <h1 className="text-xl font-black text-[#7a3f13]">Funny English Dashboard</h1>
+            <p className="text-xs font-bold text-[#9b6339]">Khu tro choi vui nhon theo phong cach thieu nhi</p>
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="hidden sm:flex items-center gap-2 rounded-full bg-slate-100 px-3 py-1.5">
-              <Avatar style={{ width: '34px', height: '34px' }} {...(user?.avatar || fallbackAvatar)} />
-              <span className="text-sm font-bold text-slate-700">{displayName}</span>
-            </div>
+            <button
+              type="button"
+              onClick={toggleMusic}
+              className="rounded-full bg-gradient-to-r from-[#58bfff] to-[#3f99ff] px-4 py-2 text-sm font-black text-white"
+            >
+              {isMusicOn ? 'Tat nhac' : 'Bat nhac'}
+            </button>
             <button
               type="button"
               onClick={handleLogout}
-              className="rounded-full bg-rose-500 px-4 py-2 text-sm font-bold text-white"
+              className="rounded-full bg-gradient-to-r from-[#ff8a52] to-[#ff5f45] px-4 py-2 text-sm font-black text-white"
             >
               Đăng xuất
             </button>
@@ -99,16 +245,42 @@ export default function Dashboard() {
         </div>
       </header>
 
-      <section className="mx-auto max-w-7xl px-4 py-6 space-y-6">
-        <div className="rounded-2xl bg-gradient-to-r from-sky-500 to-indigo-500 p-5 text-white">
-          <p className="text-sm font-semibold opacity-90">Kho game dựa trên repo GCompris</p>
-          <h2 className="mt-1 text-2xl font-black">Hiển thị game đúng vị trí theo nhóm học tập</h2>
-          <p className="mt-2 text-sm font-semibold opacity-90">Tổng cộng {gcomprisGames.length} trò chơi từ kho GCompris.</p>
+      <section className="relative mx-auto max-w-7xl space-y-6 px-4 py-6">
+        <div className="rounded-3xl border-4 border-[#f7e8d3] bg-gradient-to-r from-[#ffa53c] via-[#ffbd4c] to-[#ffd160] p-5 text-white shadow-xl">
+          <p className="text-sm font-bold opacity-90">Welcome to Funny English</p>
+          <h2 className="mt-1 text-3xl font-black">Kham pha tro choi hoc tieng Anh that vui</h2>
+          <p className="mt-2 text-sm font-bold opacity-90">Tong cong {gcomprisGames.length} tro choi, co nhac nen va mini-game choi ngay.</p>
+        </div>
+
+        <div className="rounded-3xl border-4 border-[#d7f0bf] bg-[#f3ffe6]/95 p-4 shadow-md">
+          <div className="mb-3 flex items-center justify-between">
+            <h3 className="text-lg font-black text-[#3c7b23]">Choi Ngay Tren Web</h3>
+            <span className="rounded-full bg-[#b7e591] px-3 py-1 text-xs font-black text-[#255213]">Playable</span>
+          </div>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            {customGames.map((game) => (
+              <Link to={game.path} key={`playable-${game.slug}`}>
+                <motion.div
+                  whileHover={{ y: -4 }}
+                  className="overflow-hidden rounded-2xl border-2 border-[#d9ecbf] bg-white/95 shadow-sm transition hover:shadow-md"
+                >
+                  <div className="h-28 bg-cover bg-center" style={{ backgroundImage: `url(${game.icon})` }} />
+                  <div className="space-y-2 p-3">
+                    <h4 className="text-sm font-black text-slate-800">{game.title}</h4>
+                    <p className="text-xs text-slate-600">{game.description}</p>
+                    <span className="inline-block rounded-full bg-emerald-500 px-2.5 py-1 text-[11px] font-black text-white">
+                      Chơi ngay
+                    </span>
+                  </div>
+                </motion.div>
+              </Link>
+            ))}
+          </div>
         </div>
 
         <div className="flex flex-wrap gap-2">
           {categories.map((cat) => (
-            <span key={cat.key} className={`rounded-full px-4 py-2 text-xs font-black uppercase ${cat.color}`}>
+            <span key={cat.key} className={`rounded-full border-2 border-white/70 px-4 py-2 text-xs font-black uppercase shadow-sm ${cat.color}`}>
               {cat.name}
             </span>
           ))}
@@ -125,9 +297,9 @@ export default function Dashboard() {
 
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
               {category.key === 'creativity' && customGames.map((game) => (
-                <Link to={`/games/${game.slug}`} key={game.slug}>
+                <Link to={game.path} key={game.slug}>
                   <motion.div
-                    className="group overflow-hidden rounded-2xl bg-white shadow-md transition-all hover:shadow-xl hover:-translate-y-1"
+                    className="group overflow-hidden rounded-2xl border-2 border-[#f2e4ce] bg-[#fff9ef] shadow-md transition-all hover:-translate-y-1 hover:shadow-xl"
                     whileHover={{ scale: 1.05 }}
                   >
                     <div
@@ -145,7 +317,7 @@ export default function Dashboard() {
                 <Link to={`/games/${game.slug}`} key={game.id}>
                   <motion.div
                     whileHover={{ y: -6 }}
-                    className="overflow-hidden rounded-2xl border bg-white shadow-sm"
+                    className="overflow-hidden rounded-2xl border-2 border-[#f2e4ce] bg-[#fff9ef] shadow-sm"
                   >
                     <div className={`h-32 ${game.bg} flex items-center justify-center text-5xl`}>
                       {game.icon}

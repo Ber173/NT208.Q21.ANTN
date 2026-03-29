@@ -32,21 +32,18 @@ export default function Login() {
   };
 
   return (
-    <section className="bg-gray-50 dark:bg-gray-900">
-      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-        <a
-          href="#"
-          className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
-        >
-          <img
-            className="w-8 h-8 mr-2"
-            src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg"
-            alt="logo"
-          />
-          Flowbite
-        </a>
+    <section className="relative min-h-screen overflow-hidden bg-gradient-to-b from-[#f89f3c] via-[#f6c85a] to-[#e5f391]">
+      <div className="pointer-events-none absolute -left-20 top-36 h-64 w-64 rounded-full bg-[#fff2d8]/80" />
+      <div className="pointer-events-none absolute -right-24 top-28 h-72 w-72 rounded-full bg-[#fff7e6]/75" />
+      <div className="pointer-events-none absolute bottom-0 left-0 h-52 w-full bg-gradient-to-t from-[#9de072]/80 to-transparent" />
 
-        <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+      <div className="relative mx-auto flex min-h-screen flex-col items-center justify-center px-6 py-8 lg:py-0">
+        <div className="mb-6 text-center">
+          <p className="text-5xl font-black tracking-tight text-white drop-shadow-md md:text-6xl">Funny English</p>
+          <p className="mt-2 text-sm font-extrabold text-[#7c420a]">Dang nhap de tiep tuc hanh trinh hoc tap</p>
+        </div>
+
+        <div className="w-full rounded-3xl border-4 border-[#f6e9d7] bg-[#fff8eb]/95 shadow-2xl sm:max-w-md xl:p-0">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <div className="flex justify-center">
               <Avatar
@@ -65,17 +62,17 @@ export default function Login() {
               />
             </div>
 
-            <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-              Sign in to your account
+            <h1 className="text-xl font-black leading-tight tracking-tight text-[#6a3511] md:text-2xl">
+              Dang nhap tai khoan
             </h1>
 
             <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
               <div>
                 <label
                   htmlFor="email"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  className="block mb-2 text-sm font-bold text-[#7c420a]"
                 >
-                  Your email
+                  Email
                 </label>
                 <input
                   type="email"
@@ -83,7 +80,7 @@ export default function Login() {
                   id="email"
                   value={email}
                   onChange={(event) => setEmail(event.target.value)}
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="block w-full rounded-xl border-2 border-[#f0d9b8] bg-white/90 p-2.5 text-sm text-[#6a3511] focus:border-[#f89f3c] focus:outline-none"
                   placeholder="name@company.com"
                   required
                 />
@@ -92,9 +89,9 @@ export default function Login() {
               <div>
                 <label
                   htmlFor="password"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  className="block mb-2 text-sm font-bold text-[#7c420a]"
                 >
-                  Password
+                  Mat khau
                 </label>
                 <input
                   type="password"
@@ -103,7 +100,7 @@ export default function Login() {
                   value={password}
                   onChange={(event) => setPassword(event.target.value)}
                   placeholder="••••••••"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="block w-full rounded-xl border-2 border-[#f0d9b8] bg-white/90 p-2.5 text-sm text-[#6a3511] focus:border-[#f89f3c] focus:outline-none"
                   required
                 />
               </div>
@@ -114,18 +111,18 @@ export default function Login() {
 
               <button
                 type="submit"
-                className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                className="w-full rounded-xl bg-gradient-to-r from-[#ff8b3d] to-[#ff5f45] px-5 py-2.5 text-center text-sm font-black text-white shadow-md hover:brightness-105"
               >
-                Sign in
+                Dang nhap
               </button>
 
-              <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                Don’t have an account yet?{' '}
+              <p className="text-sm font-semibold text-[#8f5a31]">
+                Chua co tai khoan?{' '}
                 <Link
                   to="/"
-                  className="font-medium text-primary-600 hover:underline dark:text-primary-500"
+                  className="font-black text-[#d14d00] hover:underline"
                 >
-                  Register here
+                  Dang ky ngay
                 </Link>
               </p>
             </form>

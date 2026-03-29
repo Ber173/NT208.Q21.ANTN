@@ -29,6 +29,20 @@ export default function GameDetail() {
           />
           <div className="space-y-4 p-6">
             <h1 className="text-3xl font-black text-slate-800">{game.title}</h1>
+            <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-4">
+              <h2 className="mb-2 text-lg font-black text-emerald-800">Muốn chơi ngay trên web?</h2>
+              <p className="mb-3 text-sm text-emerald-900/80">
+                Một số game web đã có sẵn trong dashboard.
+              </p>
+              <div className="flex flex-wrap gap-2">
+                <Link to="/games/rocket-dodge" className="rounded-full bg-emerald-500 px-4 py-2 text-xs font-black text-white hover:bg-emerald-600">
+                  Chơi Rocket Dodge
+                </Link>
+                <Link to="/games/drawing-board" className="rounded-full bg-sky-500 px-4 py-2 text-xs font-black text-white hover:bg-sky-600">
+                  Chơi Bảng Vẽ
+                </Link>
+              </div>
+            </div>
             <div className="rounded-2xl bg-sky-50 p-4">
               <h2 className="mb-2 text-lg font-black text-slate-800">
                 Chơi game này trên GCompris
