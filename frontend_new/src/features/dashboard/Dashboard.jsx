@@ -206,6 +206,30 @@ export default function Dashboard() {
       icon: 'https://images.unsplash.com/photo-1516627145497-ae6968895b9f?auto=format&fit=crop&w=900&q=80',
       description: 'Mo ung dung ke chuyen AI da clone de choi ngay tu dashboard.',
     },
+    {
+      slug: 'word-scramble',
+      path: '/games/word-scramble',
+      title: 'Word Scramble',
+      category: 'reading',
+      icon: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=900&q=80',
+      description: 'Sắp xếp chữ cái bị xáo trộn để tạo thành từ tiếng Anh đúng.',
+    },
+    {
+      slug: 'drag-drop',
+      path: '/games/drag-drop',
+      title: 'Drag & Drop Match',
+      category: 'reading',
+      icon: 'https://images.unsplash.com/photo-1596464716127-f2a82984de30?auto=format&fit=crop&w=900&q=80',
+      description: 'Ghép từ tiếng Anh với hình ảnh tương ứng bằng cách chọn cặp.',
+    },
+    {
+      slug: 'listening-quiz',
+      path: '/games/listening-quiz',
+      title: 'Listening Quiz',
+      category: 'reading',
+      icon: 'https://images.unsplash.com/photo-1478737270239-2f02b77fc618?auto=format&fit=crop&w=900&q=80',
+      description: 'Nghe phát âm tiếng Anh và chọn đáp án đúng từ 4 lựa chọn.',
+    },
   ];
 
   return (

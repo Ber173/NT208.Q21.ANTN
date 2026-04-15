@@ -1,0 +1,12 @@
+{
+  "presets": [
+    "@babel/preset-typescript",
+    ["@babel/preset-env", { "modules": false }],
+    ["@babel/preset-react", { "runtime": "automatic" }]
+  ],
+  "plugins": [
+    "@babel/plugin-transform-flow-strip-types",
+    ["@babel/plugin-proposal-decorators", { "version": "legacy" }],
+    ["@babel/plugin-proposal-class-properties"]
+  ]
+}
